@@ -244,9 +244,9 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-emerald-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/20 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
       {/* Top Brand Bar */}
       <header className="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between gap-2 overflow-hidden">
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 flex items-center justify-center rounded-xl overflow-hidden bg-white dark:bg-slate-800 p-1.5 sm:p-2 border-2 border-slate-200/80 dark:border-slate-700 shadow-xs shrink-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
+            <div className="h-9 w-9 sm:h-11 sm:w-11 md:h-13 md:w-13 flex items-center justify-center rounded-xl overflow-hidden bg-white dark:bg-slate-800 p-1 sm:p-1.5 border-2 border-slate-200/80 dark:border-slate-700 shadow-xs shrink-0">
               <img
                 src="/src/assets/images/logoSena.svg"
                 alt="Logo SENA"
@@ -255,33 +255,33 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white leading-none whitespace-nowrap">
+                <span className="text-base sm:text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white leading-none whitespace-nowrap">
                   SENA CGTS
                 </span>
-                <span className="inline-flex text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800 whitespace-nowrap">
+                <span className="hidden xs:inline-flex text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800 whitespace-nowrap shrink-0">
                   {t('portalTitle')}
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#39A900] font-bold tracking-wide uppercase mt-0.5 truncate">
+              <p className="hidden sm:block text-[11px] sm:text-xs text-[#39A900] font-bold tracking-wide uppercase mt-0.5 truncate">
                 {t('portalSubtitle')}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Interactive Language Switcher */}
             <div
-              className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700 shadow-2xs"
+              className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-0.5 sm:p-1 border border-slate-200 dark:border-slate-700 shadow-2xs shrink-0"
               role="group"
               aria-label={t('languageLabel')}
             >
-              <div className="flex items-center gap-1 pl-1.5 pr-1 text-slate-500 dark:text-slate-400">
-                <Globe className="w-3.5 h-3.5 text-[#39A900]" />
+              <div className="hidden xs:flex items-center gap-1 pl-1.5 pr-1 text-slate-500 dark:text-slate-400">
+                <Globe className="w-3.5 h-3.5 text-[#39A900] shrink-0" />
               </div>
               <button
                 type="button"
                 onClick={() => handleChangeLanguage('es')}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
                   currentLang === 'es'
                     ? 'bg-[#39A900] text-white shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -293,7 +293,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
               <button
                 type="button"
                 onClick={() => handleChangeLanguage('en')}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
                   currentLang === 'en'
                     ? 'bg-[#39A900] text-white shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -307,14 +307,14 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
             {/* Dark Mode Switcher */}
             <button
               onClick={onToggleDarkMode}
-              className="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer shrink-0"
               title={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
               aria-label={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
             >
               {isDarkMode ? (
-                <Sun className="w-5 h-5 text-amber-400" />
+                <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               ) : (
-                <Moon className="w-5 h-5 text-slate-600" />
+                <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" />
               )}
             </button>
           </div>

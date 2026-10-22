@@ -117,39 +117,39 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors w-full">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between gap-2 sm:gap-4 min-h-[3.75rem] sm:min-h-[4.25rem] py-1.5 sm:py-2 w-full">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-3 md:gap-4 min-h-[3.75rem] sm:min-h-[4.25rem] py-1.5 sm:py-2 w-full max-w-full">
           {/* Zone 1: Single text wordmark with enlarged SENA green brand accent */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink min-w-0">
             <button
               onClick={() => setActiveTab('plan')}
-              className="flex items-center gap-2 sm:gap-3 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] rounded-xl transition-all cursor-pointer"
+              className="flex items-center gap-2 sm:gap-2.5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] rounded-xl transition-all cursor-pointer min-w-0"
             >
-              <div className="h-10 w-10 sm:h-12 sm:w-12 md:h-13 md:w-13 flex items-center justify-center rounded-xl overflow-hidden group-hover:scale-105 transition-transform bg-white dark:bg-slate-800 p-1.5 sm:p-2 border-2 border-slate-200/80 dark:border-slate-700 shadow-sm shrink-0">
+              <div className="h-9 w-9 sm:h-11 sm:w-11 md:h-12 md:w-12 flex items-center justify-center rounded-xl overflow-hidden group-hover:scale-105 transition-transform bg-white dark:bg-slate-800 p-1 sm:p-1.5 border-2 border-slate-200/80 dark:border-slate-700 shadow-sm shrink-0">
                 <img
                   src="/src/assets/images/logoSena.svg"
                   alt="Logo Oficial SENA"
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white whitespace-nowrap leading-none">
+                  <span className="text-base sm:text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white whitespace-nowrap leading-none">
                     SENA CGTS
                   </span>
                   {/* Distinctive Role Pill */}
                   {userRole === 'instructor' ? (
-                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800 shrink-0">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#39A900] animate-pulse" />
                       {t('roleInstructor')}
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-sky-300 dark:border-sky-800">
+                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-sky-300 dark:border-sky-800 shrink-0">
                       <GraduationCap className="w-3 h-3 text-sky-600 dark:text-sky-400" />
                       {t('roleApprentice')}
                     </span>
                   )}
                 </div>
-                <span className="hidden xs:inline-block text-[11px] sm:text-xs text-[#39A900] font-bold tracking-wide uppercase mt-0.5">
+                <span className="hidden md:inline-block text-[11px] sm:text-xs text-[#39A900] font-bold tracking-wide uppercase mt-0.5 truncate">
                   {t('portalSubtitle')}
                 </span>
               </div>
@@ -183,25 +183,25 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
 
           {/* Zone 3: Actions + Role Switches + Dark mode toggle */}
-          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0 max-w-full">
             {/* Instructor Quick Privileges: Share & Preview Apprentice View */}
             {userRole === 'instructor' ? (
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 <button
                   onClick={onOpenShareModal}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-[#39A900] hover:bg-[#329200] rounded-xl shadow-xs transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-bold text-white bg-[#39A900] hover:bg-[#329200] rounded-xl shadow-xs transition-colors cursor-pointer shrink-0"
                   title="Copiar o compartir enlace directo para que los aprendices hagan la inducción"
                 >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>Compartir con Aprendices</span>
+                  <Share2 className="w-3.5 h-3.5 shrink-0" />
+                  <span className="hidden md:inline">Compartir con Aprendices</span>
                 </button>
 
                 <button
                   onClick={() => onToggleRole('aprendiz')}
-                  className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer"
+                  className="hidden xl:inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer shrink-0"
                   title="Cambiar temporalmente a la vista de Aprendiz para probar su experiencia"
                 >
-                  <Users className="w-3.5 h-3.5 text-slate-500" />
+                  <Users className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                   <span>Ver como Aprendiz</span>
                 </button>
 
@@ -211,51 +211,50 @@ export const Header: React.FC<HeaderProps> = ({
                     href={syncStatus.sheetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 rounded-lg transition-colors group"
+                    className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 rounded-lg transition-colors group shrink-0"
                     title={syncStatus.message || 'Sincronización automática con Google Sheets activa'}
                   >
-                    <span className="w-2 h-2 rounded-full bg-[#39A900] animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-[#39A900] animate-pulse shrink-0" />
                     <span className="group-hover:underline">Sheets Activa</span>
-                    <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   </a>
                 )}
               </div>
             ) : (
               /* Apprentice Role Actions: Has locked Instructor Access button */
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 <button
                   onClick={onOpenInstructorLogin}
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 rounded-xl transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 rounded-xl transition-colors cursor-pointer shrink-0"
                   title="Si eres el instructor o coordinador, ingresa aquí para desbloquear el panel"
                 >
-                  <Lock className="w-3 h-3 text-amber-500" />
-                  <span className="hidden sm:inline">Acceso Instructor</span>
-                  <span className="sm:hidden">Instructor</span>
+                  <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span className="hidden lg:inline">Acceso Instructor</span>
                 </button>
               </div>
             )}
 
             {syncStatus?.state === 'syncing' && (
-              <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 rounded-lg animate-pulse">
-                <RefreshCw className="w-3 h-3 animate-spin text-sky-600 dark:text-sky-400" />
-                <span>Guardando...</span>
+              <div className="hidden sm:inline-flex items-center gap-1.5 px-2 py-1 text-xs font-semibold text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 rounded-lg animate-pulse shrink-0">
+                <RefreshCw className="w-3 h-3 animate-spin text-sky-600 dark:text-sky-400 shrink-0" />
+                <span className="hidden md:inline">Guardando...</span>
               </div>
             )}
 
             {/* Apprentice Profile Button */}
             <button
               onClick={onOpenProfile}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
+              className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap cursor-pointer shrink-0"
               title={t('navProfileTitle')}
             >
               {avatarId ? (
-                <span className="text-base">
+                <span className="text-base shrink-0">
                   {AVATAR_OPTIONS.find((a) => a.id === avatarId)?.icon}
                 </span>
               ) : (
-                <User className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                <User className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
               )}
-              <span className="max-w-[90px] sm:max-w-[110px] truncate">
+              <span className="hidden sm:inline max-w-[70px] md:max-w-[100px] truncate">
                 {apprenticeName.split(' ')[0] || t('roleApprentice')}
               </span>
             </button>
@@ -264,43 +263,43 @@ export const Header: React.FC<HeaderProps> = ({
             {onExitToLanding && (
               <button
                 onClick={onExitToLanding}
-                className="hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors cursor-pointer shrink-0"
                 title={t('navExitLandingTitle')}
               >
-                <LogOut className="w-3 h-3 text-slate-500" />
-                <span>{t('navSwitchRole')}</span>
+                <LogOut className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <span className="hidden md:inline">{t('navSwitchRole')}</span>
               </button>
             )}
 
             {completedQuiz ? (
               <button
                 onClick={() => setActiveTab('certificado')}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#39A900] hover:bg-[#329200] rounded-lg shadow-sm transition-all whitespace-nowrap cursor-pointer"
+                className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-semibold text-white bg-[#39A900] hover:bg-[#329200] rounded-lg shadow-sm transition-all whitespace-nowrap cursor-pointer shrink-0"
               >
-                <Award className="w-3.5 h-3.5" />
+                <Award className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">{t('navViewCertificate')}</span>
                 <span className="sm:hidden">{t('navDiploma')}</span>
               </button>
             ) : (
               <button
                 onClick={() => setActiveTab('evaluacion')}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-[#00324D] hover:bg-[#002538] dark:bg-emerald-700 dark:hover:bg-emerald-600 rounded-lg transition-all whitespace-nowrap cursor-pointer"
+                className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-medium text-white bg-[#00324D] hover:bg-[#002538] dark:bg-emerald-700 dark:hover:bg-emerald-600 rounded-lg transition-all whitespace-nowrap cursor-pointer shrink-0"
               >
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-200" />
-                <span>{t('navStartQuiz')}</span>
+                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-200 shrink-0" />
+                <span className="hidden xs:inline">{t('navStartQuiz')}</span>
               </button>
             )}
 
             {/* Language Switcher in Header */}
             <div
-              className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 shadow-2xs"
+              className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 shadow-2xs shrink-0"
               role="group"
               aria-label={t('languageLabel')}
             >
               <button
                 type="button"
                 onClick={() => handleChangeLanguage('es')}
-                className={`px-2 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-1 text-[10px] sm:text-[11px] font-bold rounded-md transition-all cursor-pointer ${
                   currentLang === 'es'
                     ? 'bg-[#39A900] text-white shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -312,7 +311,7 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={() => handleChangeLanguage('en')}
-                className={`px-2 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                className={`px-1.5 sm:px-2 py-1 text-[10px] sm:text-[11px] font-bold rounded-md transition-all cursor-pointer ${
                   currentLang === 'en'
                     ? 'bg-[#39A900] text-white shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -328,7 +327,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={onToggleDarkMode}
               aria-label={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
               title={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] cursor-pointer"
+              className="p-1.5 sm:p-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] cursor-pointer"
             >
               {isDarkMode ? (
                 <Sun className="w-4 h-4 text-amber-400 animate-in spin-in-90 duration-200" />
