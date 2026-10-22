@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Award,
   CheckCircle,
   ExternalLink,
+  Globe,
   GraduationCap,
   Lock,
   LogOut,
@@ -16,6 +18,12 @@ import {
 } from 'lucide-react';
 import { AutoSyncStatus } from '../services/autoSyncEngine';
 import { AVATAR_OPTIONS } from '../data/avatars';
+import {
+  changeAppLanguage,
+  getTranslation,
+  Language,
+  TranslationKey,
+} from '../i18n';
 
 interface HeaderProps {
   activeTab: string;
@@ -54,13 +62,50 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenShareModal,
   onExitToLanding,
 }) => {
+  const { i18n } = useTranslation();
+
+  const [currentLang, setCurrentLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('sena_language');
+      if (stored === 'en' || stored === 'es') return stored;
+    }
+    return (i18n.language?.startsWith('en') ? 'en' : 'es') as Language;
+  });
+
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      setCurrentLang(lng.startsWith('en') ? 'en' : 'es');
+    };
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<Language>;
+      if (customEvent.detail) {
+        setCurrentLang(customEvent.detail);
+      }
+    };
+    i18n.on('languageChanged', handleLanguageChanged);
+    window.addEventListener('sena_language_change', handleCustomChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+      window.removeEventListener('sena_language_change', handleCustomChange);
+    };
+  }, [i18n]);
+
+  const handleChangeLanguage = (newLang: Language) => {
+    changeAppLanguage(newLang);
+    setCurrentLang(newLang);
+  };
+
+  const t = (key: TranslationKey): string => {
+    return getTranslation(currentLang, key);
+  };
+
   const allNavItems = [
-    { id: 'plan', label: 'Plan de Inducción' },
-    { id: 'reglamento', label: 'Reglamento 2024' },
-    { id: 'simulador', label: 'Simulador de Casos' },
-    { id: 'evaluacion', label: 'Evaluación' },
-    { id: 'certificado', label: 'Certificado Digital' },
-    { id: 'coordinacion', label: 'Panel Instructor' },
+    { id: 'plan', label: t('navPlan') },
+    { id: 'reglamento', label: t('navReglamento') },
+    { id: 'simulador', label: t('navSimulador') },
+    { id: 'evaluacion', label: t('navEvaluacion') },
+    { id: 'certificado', label: t('navCertificado') },
+    { id: 'coordinacion', label: t('navCoordinacion') },
   ];
 
   // Strictly filter out Panel Instructor for Apprentice role
@@ -95,17 +140,17 @@ export const Header: React.FC<HeaderProps> = ({
                   {userRole === 'instructor' ? (
                     <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#39A900] animate-pulse" />
-                      Instructor
+                      {t('roleInstructor')}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-950/80 px-1.5 sm:px-2 py-0.5 rounded-full border border-sky-300 dark:border-sky-800">
                       <GraduationCap className="w-3 h-3 text-sky-600 dark:text-sky-400" />
-                      Aprendiz
+                      {t('roleApprentice')}
                     </span>
                   )}
                 </div>
                 <span className="hidden xs:inline-block text-[11px] sm:text-xs text-[#39A900] font-bold tracking-wide uppercase mt-0.5">
-                  Inducción Digital
+                  {t('portalSubtitle')}
                 </span>
               </div>
             </button>
@@ -201,7 +246,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenProfile}
               className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
-              title="Configurar mis datos de aprendiz"
+              title={t('navProfileTitle')}
             >
               {avatarId ? (
                 <span className="text-base">
@@ -211,7 +256,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <User className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               )}
               <span className="max-w-[90px] sm:max-w-[110px] truncate">
-                {apprenticeName.split(' ')[0] || 'Aprendiz'}
+                {apprenticeName.split(' ')[0] || t('roleApprentice')}
               </span>
             </button>
 
@@ -220,10 +265,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onClick={onExitToLanding}
                 className="hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors cursor-pointer"
-                title="Volver a la pantalla principal de selección de rol"
+                title={t('navExitLandingTitle')}
               >
                 <LogOut className="w-3 h-3 text-slate-500" />
-                <span>Cambiar Rol</span>
+                <span>{t('navSwitchRole')}</span>
               </button>
             )}
 
@@ -233,8 +278,8 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#39A900] hover:bg-[#329200] rounded-lg shadow-sm transition-all whitespace-nowrap cursor-pointer"
               >
                 <Award className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Ver Certificado</span>
-                <span className="sm:hidden">Diploma</span>
+                <span className="hidden sm:inline">{t('navViewCertificate')}</span>
+                <span className="sm:hidden">{t('navDiploma')}</span>
               </button>
             ) : (
               <button
@@ -242,15 +287,47 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-[#00324D] hover:bg-[#002538] dark:bg-emerald-700 dark:hover:bg-emerald-600 rounded-lg transition-all whitespace-nowrap cursor-pointer"
               >
                 <CheckCircle className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-200" />
-                <span>Iniciar Quiz</span>
+                <span>{t('navStartQuiz')}</span>
               </button>
             )}
+
+            {/* Language Switcher in Header */}
+            <div
+              className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 shadow-2xs"
+              role="group"
+              aria-label={t('languageLabel')}
+            >
+              <button
+                type="button"
+                onClick={() => handleChangeLanguage('es')}
+                className={`px-2 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                  currentLang === 'es'
+                    ? 'bg-[#39A900] text-white shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Español"
+              >
+                ES
+              </button>
+              <button
+                type="button"
+                onClick={() => handleChangeLanguage('en')}
+                className={`px-2 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                  currentLang === 'en'
+                    ? 'bg-[#39A900] text-white shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="English"
+              >
+                EN
+              </button>
+            </div>
 
             {/* Dark Mode Toggle Button */}
             <button
               onClick={onToggleDarkMode}
-              aria-label={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-              title={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              aria-label={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
+              title={isDarkMode ? t('switchThemeLight') : t('switchThemeDark')}
               className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] cursor-pointer"
             >
               {isDarkMode ? (
